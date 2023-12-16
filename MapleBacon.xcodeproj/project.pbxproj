@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B78DEDE2B2D7DAF003A49F3 /* IImage+DataConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B78DEDD2B2D7DAF003A49F3 /* IImage+DataConvertibleTests.swift */; };
+		4B78DEE02B2D7FC0003A49F3 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 4B78DEDF2B2D7FC0003A49F3 /* Images */; };
 		775455712418DF4100FF8F5F /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775455702418DF4100FF8F5F /* Download.swift */; };
 		775455732418E70B00FF8F5F /* Data+MapleBacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775455722418E70B00FF8F5F /* Data+MapleBacon.swift */; };
 		7778FD28240FAC6B007764C6 /* DispatchQueue+MapleBacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7778FD27240FAC6B007764C6 /* DispatchQueue+MapleBacon.swift */; };
@@ -48,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B78DEDD2B2D7DAF003A49F3 /* IImage+DataConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IImage+DataConvertibleTests.swift"; sourceTree = "<group>"; };
+		4B78DEDF2B2D7FC0003A49F3 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		775455702418DF4100FF8F5F /* Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
 		775455722418E70B00FF8F5F /* Data+MapleBacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+MapleBacon.swift"; sourceTree = "<group>"; };
 		7778FD27240FAC6B007764C6 /* DispatchQueue+MapleBacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+MapleBacon.swift"; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 		F247A24B23FF15410083DB03 /* MapleBaconTests */ = {
 			isa = PBXGroup;
 			children = (
+				4B78DEDF2B2D7FC0003A49F3 /* Images */,
 				F27CBA0F2402B2F0006CD529 /* CacheTests.swift */,
 				F247A25F23FF19300083DB03 /* DiskCacheTests.swift */,
 				F27CBA212402DC0B006CD529 /* DownloaderTests.swift */,
@@ -155,6 +160,7 @@
 				F247A25B23FF163F0083DB03 /* MemoryCacheTests.swift */,
 				F27CBA232402DC34006CD529 /* MockURLSessionConfiguration.swift */,
 				F27CBA112402B33E006CD529 /* TestHelpers.swift */,
+				4B78DEDD2B2D7DAF003A49F3 /* IImage+DataConvertibleTests.swift */,
 			);
 			path = MapleBaconTests;
 			sourceTree = "<group>";
@@ -287,6 +293,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B78DEE02B2D7FC0003A49F3 /* Images in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +334,7 @@
 				F2255E24240462D800193742 /* MapleBaconTests.swift in Sources */,
 				F247A26023FF19300083DB03 /* DiskCacheTests.swift in Sources */,
 				F27CBA242402DC34006CD529 /* MockURLSessionConfiguration.swift in Sources */,
+				4B78DEDE2B2D7DAF003A49F3 /* IImage+DataConvertibleTests.swift in Sources */,
 				F27CBA102402B2F0006CD529 /* CacheTests.swift in Sources */,
 				F27CBA122402B33E006CD529 /* TestHelpers.swift in Sources */,
 				F2EEE587240BBE040002C9CA /* ImageTransformingTests.swift in Sources */,

@@ -28,7 +28,7 @@ public final class MapleBacon {
     }
   }
 
-  private let cache: Cache<UIImage>
+  let cache: Cache<UIImage>
   private let downloader: Downloader<UIImage>
   private let transformerQueue: DispatchQueue
 
@@ -97,7 +97,7 @@ public final class MapleBacon {
 
 }
 
-private extension MapleBacon {
+extension MapleBacon {
 
   func isCached(with url: URL, imageTransformer: ImageTransforming?) throws -> Bool {
     let cacheKey = makeCacheKey(for: url, imageTransformer: imageTransformer)
