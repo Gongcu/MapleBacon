@@ -110,7 +110,40 @@ final class MapleBaconTests: XCTestCase {
 
     waitForExpectations(timeout: 5, handler: nil)
   }
-
+  
+  func testFetchAndCacheIntegration() {
+    guard let faviconURL = URL(string: "https://camo.githubusercontent.com/677de484983b3c6f437ebcfb978ef7310c799bbf822a00da1afddd311c3e2793/68747470733a2f2f7777772e64726f70626f782e636f6d2f732f6d6c717577396b366f677673706f782f4d61706c654261636f6e2e706e673f7261773d31") else {
+      XCTFail("not found")
+      return
+    }
+    let mapleBacon = MapleBacon(cache: cache, sessionConfiguration: .imageDataProviding)
+    let fetchImageAndCacheExpectaion = XCTestExpectation()
+    let _ = mapleBacon.fetchImageFromNetwork(with: faviconURL) { result in
+      guard (try? result.get()) != nil else {
+        XCTFail()
+        return
+      }
+      fetchImageAndCacheExpectaion.fulfill()
+    }
+    wait(for: [fetchImageAndCacheExpectaion], timeout: 5)
+    
+    
+    XCTAssertTrue(try! cache.isCached(forKey: faviconURL.absoluteString))
+    let cacheExistsExpectaion = XCTestExpectation()
+    mapleBacon.fetchImageFromCache(with: faviconURL, imageTransformer: nil) { result in
+      switch result {
+      case .success(_):
+        cacheExistsExpectaion.fulfill()
+      case .failure(let error):
+        XCTFail(error.localizedDescription)
+      }
+    }
+    wait(for: [cacheExistsExpectaion], timeout: 5)
+  }
+  
+  override func tearDown(completion: @escaping (Error?) -> Void) {
+    cache.clear(.all, completion: completion)
+  }
 }
 
 #if canImport(Combine)

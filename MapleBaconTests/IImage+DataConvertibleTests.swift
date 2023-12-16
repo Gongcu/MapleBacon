@@ -22,47 +22,6 @@ final class UIImageDataConvertibleTests: XCTestCase {
     let imageType = ImageType.fromData(data)
     XCTAssertNil(imageType)
   }
-  
-  // get image from remote and
-  func testRemote() {
-    guard let url = URL(string: "https://camo.githubusercontent.com/677de484983b3c6f437ebcfb978ef7310c799bbf822a00da1afddd311c3e2793/68747470733a2f2f7777772e64726f70626f782e636f6d2f732f6d6c717577396b366f677673706f782f4d61706c654261636f6e2e706e673f7261773d31") else {
-      XCTFail()
-      return
-    }
-    let fetchImageAndCacheExpectaion = XCTestExpectation()
-    
-    MapleBacon.shared.image(with: url) { result in
-      guard (try? result.get()) != nil else {
-        XCTFail()
-        return
-      }
-      fetchImageAndCacheExpectaion.fulfill()
-    }
-    
-    wait(for: [fetchImageAndCacheExpectaion], timeout: 5)
-    
-    XCTAssertEqual(try! MapleBacon.shared.isCached(with: url, imageTransformer: nil), true)
-  }
-  
-  func testCache() {
-    guard let url = URL(string: "https://camo.githubusercontent.com/677de484983b3c6f437ebcfb978ef7310c799bbf822a00da1afddd311c3e2793/68747470733a2f2f7777772e64726f70626f782e636f6d2f732f6d6c717577396b366f677673706f782f4d61706c654261636f6e2e706e673f7261773d31") else {
-      XCTFail()
-      return
-    }
-    
-    let fetchImageAndCacheExpectaion = XCTestExpectation()
-    MapleBacon.shared.fetchImageFromNetwork(with: url) { result in
-      guard let image = try? result.get() else {
-        XCTFail()
-        return
-      }
-      MapleBacon.shared.cache.store(value: image, forKey: url.absoluteString) { error in
-        XCTAssertNil(error) // <- data conversion error when fetching from remote
-        fetchImageAndCacheExpectaion.fulfill()
-      }
-    }
-    wait(for: [fetchImageAndCacheExpectaion], timeout: 5)
-  }
 }
 
 extension XCTestCase {
@@ -84,5 +43,33 @@ extension XCTestCase {
     }
     
     return url!
+  }
+}
+
+private enum ImageType: String {
+  case png = "public.png"
+  case jpg = "public.jpeg"
+
+  static func fromData(_ data: Data) -> Self? {
+    func matchesPrefix(_ prefixes: [UInt8?]) -> Bool {
+      guard data.count >= prefixes.count else {
+        return false
+      }
+      return zip(prefixes.indices, prefixes).allSatisfy { index, `prefix` in
+        guard index < data.count else {
+          return false
+        }
+        return data[index] == `prefix`
+      }
+    }
+
+    if matchesPrefix([0xFF, 0xD8, 0xFF]) {
+      return .jpg
+    }
+    if matchesPrefix([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]) {
+      return .png
+    }
+
+    return nil
   }
 }

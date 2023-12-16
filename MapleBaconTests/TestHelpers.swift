@@ -60,3 +60,13 @@ final class ThirdDummyTransformer: ImageTransforming {
   }
 
 }
+
+extension Data: DataConvertible {
+  public static func convert(from data: Data) -> Data? {
+    data
+  }
+
+  public func toData() -> Data? {
+    self
+  }
+}
